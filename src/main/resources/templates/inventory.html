@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+	<title>Inventory Managment System</title>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,td {
+  height: 20%;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<br><br><br><br><br>
+		<div class="col-sm-4 " >
+			<center>
+			   <form class="form-signin" th:action="@{/addInventory}" th:object="${inventory}" method="post" >
+        		<h2>Add Inventory</h2>
+        <label for="Inventory name" class="sr-only">Inventory name</label>
+        <input type="hidden" name="invId"  value=""/>
+        <input type="text" id="inputEmail" class="form-control" placeholder="Name" required autofocus name="invName"><br>
+        <label for="inventory description" class="sr-only">Inventory Description</label>
+        <input type="textarea" id="Descrption" class="form-control" placeholder="Description" required name="invDesc">
+        <div class="checkbox">
+      
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Add Inventory</button>
+      </form>
+      </center>
+		</div>
+		<div class="col-sm-8">
+		<h2>Inventory Details</h2>
+			<table >
+			<tr>
+			
+			<th>Inventory Name</th>
+			<th>Inventory Description</th>
+			</tr>
+   <th:block th:each="inv : ${inventoryList}">
+      <tr>
+         
+         <td><a  th:text="${inv.invName}" href='#'></a> </td>
+         <td colspan="2" th:text="${inv.invDesc}"></td>
+      </tr>
+    
+   </th:block>
+</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>
