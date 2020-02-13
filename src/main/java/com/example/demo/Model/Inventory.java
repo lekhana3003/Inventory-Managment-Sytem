@@ -1,9 +1,8 @@
-package com.example.demo;
+package com.example.demo.Model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 @Entity
 @Table(name="inventory")
 public class Inventory {
@@ -12,7 +11,7 @@ public class Inventory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "invId", updatable = false, nullable = false)
 
-	private Integer invId;
+	private Long invId;
 	@NotNull
     @Size(max = 50)
 	private String invName;
@@ -26,10 +25,10 @@ public class Inventory {
 	public void setInvName(String invName) {
 		this.invName = invName;
 	}
-	public Integer getInvId() {
+	public Long getInvId() {
 		return invId;
 	}
-	public void setInvId(Integer invId) {
+	public void setInvId(Long invId) {
 		this.invId = invId;
 	}
 	public String getInvDesc() {
@@ -39,10 +38,14 @@ public class Inventory {
 		this.invDesc = invDesc;
 	}
 	
-	public Inventory() {
+	public Inventory(String name,String desc) {
 		// TODO Auto-generated constructor stub
+		this.invName=name;
+		this.invDesc=desc;
 	}
-
+	public Inventory() {
+		
+	}
 	@Override
 	public String toString() {
 		return "Inventory [invId=" + invId + ", invName=" + invName + ", invDesc=" + invDesc + "]";

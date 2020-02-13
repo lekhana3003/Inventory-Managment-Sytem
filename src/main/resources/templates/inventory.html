@@ -37,9 +37,9 @@ th,td {
         		<h2>Add Inventory</h2>
         <label for="Inventory name" class="sr-only">Inventory name</label>
         <input type="hidden" name="invId"  value=""/>
-        <input type="text" id="inputEmail" class="form-control" placeholder="Name" required autofocus name="invName"><br>
+        <input type="text" id="inputEmail" class="form-control" placeholder="Name" required autofocus name="invName"  th:value="${editInventory.invName}"><br>
         <label for="inventory description" class="sr-only">Inventory Description</label>
-        <input type="textarea" id="Descrption" class="form-control" placeholder="Description" required name="invDesc">
+        <input type="textarea" id="Descrption" class="form-control" placeholder="Description" required name="invDesc" th:value="${editInventory.invDesc}">
         <div class="checkbox">
       
         <button class="btn btn-lg btn-primary btn-block" type="submit">Add Inventory</button>
@@ -50,18 +50,19 @@ th,td {
 		<h2>Inventory Details</h2>
 			<table >
 			<tr>
-			
 			<th>Inventory Name</th>
 			<th>Inventory Description</th>
 			</tr>
    <th:block th:each="inv : ${inventoryList}">
       <tr>
          
-         <td><a  th:text="${inv.invName}" href='#'></a> </td>
+         <td><a  th:text="${inv.invName}"></a> </td>
          <td colspan="2" th:text="${inv.invDesc}"></td>
       </tr>
     
    </th:block>
+   <tr><a  th:text="${inv.invName}" href='#'></tr>
+   <tr></tr>
 </table>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Dao;
 
 
 import java.util.List;
@@ -13,12 +13,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.Model.Items;
+
 @Repository
-public interface ItemsDao extends JpaRepository<Items,Integer> {
+public interface ItemsDao extends JpaRepository<Items,Long> {
 
 
 
-@Query(nativeQuery=true,name="findAllByInvId")
-public List<Items> findAllByInvId(@Param("invId")Integer invId);
-public List<Items> findByInv(Optional<Inventory> optional);
+@Query(value = "SELECT * FROM Items i, inventory in WHERE i.inv_id=:invId", nativeQuery = true)
+public List<Items> findAllByInv(@Param("invId")Long invId);
+
 }
