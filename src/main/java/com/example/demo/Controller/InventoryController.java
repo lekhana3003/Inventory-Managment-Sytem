@@ -1,12 +1,15 @@
 package com.example.demo.Controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,13 +36,18 @@ public class InventoryController {
 		// TODO Auto-generated constructor stub
 	}
 	@GetMapping(value="/inventory")
-	public List<Inventory> inventory() throws ResourceNotFoundException {
+	@CrossOrigin(origins = "http://localhost:3000")
+	public Map<String, List<Inventory>> inventory() throws ResourceNotFoundException {
+		System.out.println("called api");
 		List<Inventory> inventoryList = ic.getAllInventory();
 		if (inventoryList.isEmpty()==true)
 			throw new ResourceNotFoundException("Inventory not found");
-		return inventoryList;
+		Map<String,List<Inventory>> jsonMap= new LinkedHashMap<String,List<Inventory>>();
+		jsonMap.put("items", inventoryList);
+		return jsonMap;
 	}
 	@PostMapping(value="/addInventory")
+		@CrossOrigin(origins = "http://localhost:3000")
 	public Inventory addInventory(@RequestBody String responseJson) throws ResourceNotFoundException
 	{	
 		
@@ -54,6 +62,7 @@ public class InventoryController {
 	}
 	
 	@GetMapping(value="/editInventory/{invId}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public Optional<Inventory> addInventory(@PathVariable(name="invId")Long invId) throws ResourceNotFoundException
 	{
 		Optional<Inventory> inventory = ic.editInventory(invId);
@@ -63,6 +72,7 @@ public class InventoryController {
 	}
 
 	@PostMapping(value="/updateInventory")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public Inventory updateInventory(@RequestBody String responseJson) throws ResourceNotFoundException
 	{	
 		Inventory inventory=gson.fromJson(responseJson,Inventory.class);
@@ -73,6 +83,7 @@ public class InventoryController {
 	}
 	
 	@GetMapping(value="/deleteInventory/{invId}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public String deleteInventory(@PathVariable(name="invId")Long invId) throws ResourceNotFoundException
 	{
 		String code=ic.deleteInventoryValues(invId);

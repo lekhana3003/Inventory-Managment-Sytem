@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ public class ItemsController {
 		// TODO Auto-generated constructor stub
 	}
 	@GetMapping(value="/getItems/{invId}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public List<Items> getItems(@PathVariable("invId")Long invId) throws ResourceNotFoundException {
 		List<Items> itemsList = ir.getAllItemsByInvId(invId);
 		if (itemsList.isEmpty()==true)
@@ -32,6 +34,7 @@ public class ItemsController {
 		return itemsList;
 	}
 	@PostMapping(value="/addItem")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public Items addItem(@RequestBody String responseJson) throws ResourceNotFoundException
 	{	
 		
@@ -46,6 +49,7 @@ public class ItemsController {
 	}
 	
 	@GetMapping(value="/editItem/{itemId}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public Items editItems(@PathVariable(name="itemId")Long itemId) throws ResourceNotFoundException
 	{
 		Items inventory = ir.editItemsValues(itemId);
@@ -55,6 +59,7 @@ public class ItemsController {
 	}
 	
 	@PostMapping(value="/updateItem")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public Items updateItem(@RequestBody String responseJson) throws ResourceNotFoundException
 	{	
 		JSONObject jsonObject =  new JSONObject(responseJson);
@@ -68,6 +73,7 @@ public class ItemsController {
 	}
 	
 	@GetMapping(value="/deleteItem/{itemId}")
+	@CrossOrigin(origins = "http://localhost:3000")
 	public String deleteItems(@PathVariable(name="itemId")Long itemId) throws ResourceNotFoundException
 	{
 		String code=ir.deleteItemsValues(itemId);
